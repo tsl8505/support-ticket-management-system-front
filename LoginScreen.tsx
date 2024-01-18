@@ -4,6 +4,9 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'rea
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './types';
 import { loginUser } from './apiService'; 
+import { useAuth } from './src/context/AuthContext';
+
+
 type LoginScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Login'>;
 };
@@ -14,19 +17,27 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [useremail, setUseremail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { login } = useAuth(); // Use the useAuth hook
+
   const handleLogin = async() => {
     try {
       // Call the loginUser function
       const result = await loginUser(useremail, password);
       console.log('User logged in successfully:', result);
-      const userRole = result.role;
+      const { role } = result; // Assuming your API response has a 'role' field
 
-      // Redirect based on user role
-      if (userRole === 'admin') {
-        navigation.navigate('AdminDashboard');
-      } else {
-        navigation.navigate('UserDashboard');
-      }
+    // Redirect based on user role
+    if (role === 'admin') {
+      navigation.navigate('AdminDashboard');
+    } else {
+      navigation.navigate('UserDashboard');
+    }
+
+    // Store the token and user role in the context
+    login(result.token, role);
+
+    setUseremail('');
+    setPassword('');
     } catch (error) {
       // Handle login error, show error message, etc.
       console.error('Error logging in user:', error);

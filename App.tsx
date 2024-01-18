@@ -8,19 +8,22 @@ import SignupScreen from './SignupScreen';
 import UserDashboard from './UserDashboard';
 import AdminDashboard from './AdminDashboard';
 
-import { RootStackParamList } from './types'; // Adjust the path as needed
+import { AuthProvider } from './src/context/AuthContext';
+
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="UserDashboard" component={UserDashboard} />
-        <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
-      </Stack.Navigator>
+      <AuthProvider>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="UserDashboard" component={UserDashboard} />
+          <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+        </Stack.Navigator>
+      </AuthProvider>
     </NavigationContainer>
   );
 };
