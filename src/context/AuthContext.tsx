@@ -4,8 +4,9 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 type AuthContextType = {
     // Define your context properties and their types
     token: string | null;
+    email: string | null;
     userRole: string | null;
-    login: (newToken: string | null, role: string| null) => void;
+    login: (newToken: string | null, email: string | null, role: string| null) => void;
     logout: () => void;
 };
 
@@ -17,11 +18,13 @@ type AuthProviderProps = {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [token, setToken] = useState<string | null>(null);
+    const [email, setEmail] = useState<string | null>(null);
 
     const [userRole, setUserRole] = useState<string | null>(null);
 
-  const login = (newToken: string | null, role: string| null) => {
+  const login = (newToken: string | null, email: string | null, role: string| null) => {
     setToken(newToken);
+    setEmail(email);
     setUserRole(role);
   };
 
@@ -32,6 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const contextValue: AuthContextType = {
     token,
+    email,
     userRole,
     login,
     logout,

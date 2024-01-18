@@ -30,4 +30,14 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
+export const submitRequest = async (email: string|null, title: string, descriptioin: string, imageUri: string|null) => {
+  try {
+    const response = await api.post('/tickets', {email, title, descriptioin, imageUri});
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting request:', error);
+    throw error;
+  }
+};
+
 // Add more API functions as needed

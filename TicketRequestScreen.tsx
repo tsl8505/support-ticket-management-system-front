@@ -1,14 +1,23 @@
 // TicketRequestScreen.tsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet } from 'react-native';
-import ImagePicker, { ImagePickerResponse,  launchImageLibrary } from 'react-native-image-picker';
+import { View, Text, TextInput, Button, Image, Alert, StyleSheet } from 'react-native';
 
-const TicketRequestScreen = () => {
+import { useAuth } from './src/context/AuthContext';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from './types';
+
+import { ImagePickerResponse,  launchImageLibrary } from 'react-native-image-picker';
+import { submitRequest } from './apiService'; 
+type TicketRequestScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'TicketRequest'>;
+  };
+
+const TicketRequestScreen: React.FC<TicketRequestScreenProps> = ({ navigation }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageUri, setImageUri] = useState<string | null>(null);
 
-
+  const { email } = useAuth();
 
   const handleImagePicker = () => {
     launchImageLibrary(
@@ -34,10 +43,22 @@ const TicketRequestScreen = () => {
   };
   
 
-  const handleSubmit = () => {
+  const handleSubmit = async() =>  {
+    if (!title || !description) {
+        Alert.alert('Error', 'Please fill in title and description fields before submitting.');
+        return;
+    }
+    try {
+        const result = await submitRequest( email, title, description, imageUri);
+        console.log('Request submitted successfully:', result);
+        navigation.navigate('TicketStatus'); // Use navigation prop to navigate
+      } catch (error) {
+        // Handle login error, show error message, etc.
+        console.error('Error submitting request:', error);
+      }
     // Implement logic to submit the support ticket request
     // You can use an API service or any other method to handle the submission
-    console.log('Submitting ticket request...');
+
   };
 
   return (

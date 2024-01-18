@@ -27,18 +27,18 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       console.log('User logged in successfully:', result);
       const { role } = result; // Assuming your API response has a 'role' field
 
-    // Redirect based on user role
-    if (role === 'admin') {
-      navigation.navigate('AdminDashboardTabs');
-    } else {
-      navigation.navigate('DashboardTabs');
-    }
+      // Redirect based on user role
+      if (role === 'admin') {
+        navigation.navigate('AdminDashboardTabs');
+      } else {
+        navigation.navigate('DashboardTabs');
+      }
 
-    // Store the token and user role in the context
-    login(result.token, role);
+      // Store the token and user role in the context
+      login(result.token, useremail, role);
 
-    setUseremail('');
-    setPassword('');
+      setUseremail('');
+      setPassword('');
     } catch (error) {
       // Handle login error, show error message, etc.
       console.error('Error logging in user:', error);
