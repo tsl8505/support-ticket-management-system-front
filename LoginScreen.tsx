@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './types';
 import { loginUser } from './apiService'; 
 import { useAuth } from './src/context/AuthContext';
+import { themeColors } from './themes'; 
 
 
 type LoginScreenProps = {
@@ -46,7 +47,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={[styles.title, { color: themeColors.text.darker }]}>Login</Text>
       <Text>Don’t have an account?</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.signupLink}>Sign up</Text>
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   signupLink: {
     color: 'blue',
     textDecorationLine: 'underline',
-    marginTop: 10,
+    margin: 10,
   },
 });
 
