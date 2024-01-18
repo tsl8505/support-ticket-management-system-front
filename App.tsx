@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator();
 
 const DashboardTabs = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="TicketStatus">
       <Tab.Screen name="TicketRequest" component={TicketRequestScreen} />
       <Tab.Screen name="TicketStatus" component={TicketStatusScreen} />
       <Tab.Screen name="UserProfile" component={UserProfileScreen} />

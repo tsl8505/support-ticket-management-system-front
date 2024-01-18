@@ -26,16 +26,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       const result = await loginUser(useremail, password);
       console.log('User logged in successfully:', result);
       const { role } = result; // Assuming your API response has a 'role' field
-
+      login(result.token, useremail, role);
       // Redirect based on user role
       if (role === 'admin') {
         navigation.navigate('AdminDashboardTabs');
       } else {
         navigation.navigate('DashboardTabs');
       }
-
-      // Store the token and user role in the context
-      login(result.token, useremail, role);
 
       setUseremail('');
       setPassword('');

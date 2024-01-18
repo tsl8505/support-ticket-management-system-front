@@ -52,12 +52,14 @@ const TicketRequestScreen: React.FC<TicketRequestScreenProps> = ({ navigation })
         const result = await submitRequest( email, title, description, imageUri);
         console.log('Request submitted successfully:', result);
         navigation.navigate('TicketStatus'); // Use navigation prop to navigate
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'TicketStatus' }],
+          });
       } catch (error) {
         // Handle login error, show error message, etc.
         console.error('Error submitting request:', error);
       }
-    // Implement logic to submit the support ticket request
-    // You can use an API service or any other method to handle the submission
 
   };
 
@@ -71,7 +73,7 @@ const TicketRequestScreen: React.FC<TicketRequestScreenProps> = ({ navigation })
         onChangeText={(text) => setTitle(text)}
       />
       {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
-      <Button title="Pick Image" onPress={handleImagePicker} />
+      <Button title="Upload an Image" onPress={handleImagePicker} />
       <TextInput
         style={styles.input}
         placeholder="Description"

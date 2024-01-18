@@ -23,6 +23,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [userRole, setUserRole] = useState<string | null>(null);
 
   const login = (newToken: string | null, email: string | null, role: string| null) => {
+    console.log("login!!!")
+    console.log(email)
+    console.log(userRole)
+
     setToken(newToken);
     setEmail(email);
     setUserRole(role);
@@ -30,7 +34,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setToken(null);
+    setEmail(null);
     setUserRole(null);
+    
   };
 
   const contextValue: AuthContextType = {

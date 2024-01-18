@@ -30,12 +30,28 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-export const submitRequest = async (email: string|null, title: string, descriptioin: string, imageUri: string|null) => {
+export const submitRequest = async (email: string|null, title: string, description: string, imageUri: string|null) => {
   try {
-    const response = await api.post('/tickets', {email, title, descriptioin, imageUri});
+    const response = await api.post('/tickets', {email, title, description, imageUri});
     return response.data;
   } catch (error) {
     console.error('Error submitting request:', error);
+    throw error;
+  }
+};
+
+export const getRequests = async (email: string|null) => {
+  try {
+    let response;
+    console.log("getRequests:",email);
+    if (email===null){
+      response = await api.get('/tickets');
+    } else {
+      response = await api.get('/tickets', { params: { email } });
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Error getting requests:', error);
     throw error;
   }
 };
