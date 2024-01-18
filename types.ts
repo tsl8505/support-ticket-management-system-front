@@ -6,6 +6,7 @@ export type TicketType = {
     email: string;
     description: string;
     status: string;
+    comment: string;
   };
 export type RootStackParamList = {
   Login: undefined;

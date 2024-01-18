@@ -10,9 +10,7 @@ const api = axios.create({
 export const signUpUser = async (email: string, username: string, password: string) => {
   try {
     
-    console.log('signUpUser password: ', password);
     const response = await api.post('/signup', { email, username, password });
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error signing up user:', error);
@@ -43,7 +41,6 @@ export const submitRequest = async (email: string|null, title: string, descripti
 export const getRequests = async (email: string|null) => {
   try {
     let response;
-    console.log("getRequests:",email);
     if (email===null){
       response = await api.get('/tickets');
     } else {
@@ -52,6 +49,17 @@ export const getRequests = async (email: string|null) => {
     return response.data;
   } catch (error) {
     console.error('Error getting requests:', error);
+    throw error;
+  }
+};
+
+export const updateRequest = async (ticketId: string, newStatus: string|undefined, comment: string|undefined,) => {
+  try {
+
+    const response = await api.put(`/tickets/${ticketId}/status`, { newStatus, comment});
+    return response.data;
+  } catch (error) {
+    console.error('Error updating ticket status:', error);
     throw error;
   }
 };
