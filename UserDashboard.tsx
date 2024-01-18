@@ -1,4 +1,4 @@
-// LoginScreen.tsx
+// UserDashboard.tsx
 import React from 'react';
 import { View, Text, TouchableHighlight, StyleSheet  } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';

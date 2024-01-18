@@ -29,9 +29,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     // Redirect based on user role
     if (role === 'admin') {
-      navigation.navigate('AdminDashboard');
+      navigation.navigate('AdminDashboardTabs');
     } else {
-      navigation.navigate('UserDashboard');
+      navigation.navigate('DashboardTabs');
     }
 
     // Store the token and user role in the context
